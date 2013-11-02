@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>Javascript Calculator</title>
+    <meta name="description" content="" />
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	
+	
+	
+	
+    <script type="text/javascript" >
+	
+	$(document).ready(function(){
+  var numOne;
+  var numTwo;
+  var operator;
+  var $display = $(".total");
+
+  // Clear variables and set display to '0'
+  function reset() {
+    numOne = null;
+    numTwo = null;
+    operator = null;
+    $display.text("0");
+  }
+
+  reset();
+
+  // Set a 12-digit max on the display
+  function testNumLength(number) {
+      if (number.length > 12) {
+        $display.text("too long!");
+      }
+  };
+
+  // Display the first number in the equation by setting
+  // a newVal variable to the first digit clicked, and
+  // concatenating if there are multiple digits/clicks
+  $(".numbers a").click(function() {
+    var clickDigit = $(this).text();
+    var currentVal = $display.text();
+    var newVal;
+    if (currentVal === "0") {
+      newVal = clickDigit;
+    } else {
+      newVal = currentVal + clickDigit;
+    }
+    $display.text(newVal);
+    testNumLength($display.text());
+  });
+
+  // Store the operator clicked, set the numOne variable
+  // by turning a string (the digits in the display) into
+  // a number to be calculated in the math equation, and
+  // set the display back to '0'
+  $(".operators a").click(function(){
+    operator = $(this).text();
+    numOne = parseFloat($display.text());
+    $display.text("0");
+  });
+
+  // Set the numTwo variable by getting the display value
+  // of the second set of digits clicked, and turn it into
+  // a number. Perform math calculations conditionally
+  // according the the operator value, and display the total
+  // if it is shorter than 12 digits long.
+  $("#equals").click(function(){
+    var total;
+
+    numTwo = parseFloat($display.text());
+
+    if (operator === "+"){
+      total = numOne + numTwo;
+    }
+    else if (operator === "-"){
+      total = numOne - numTwo;
+    }
+    else if (operator === "/"){
+      total = numOne / numTwo;
+    }
+    else if (operator === "*"){
+      total = numOne * numTwo;
+    }
+
+    $display.text(total);
+    testNumLength($display.text());
+  });
+
+  // Call reset function
+  $("#clear").click(function(){
+    reset();
+  });
+});
+	
+	</script>
+	
+	<!--Reset-->
+	<style>
+	/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+ }
+	</style>
+
+<!--Calculator-->
+<!--<link rel="stylesheet" type="text/css" href="css/site.css">-->
+<style>
+/*@import url('reset.css');*/
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+  }
+* html .clearfix             { zoom: 1; } /* IE6 */
+*:first-child+html .clearfix { zoom: 1; } /* IE7 */
+
+body
+{
+  font-family: 'Gudea', sans-serif;
+  font-size: 2.5em;
+  color: #fff;
+}
+
+.calculator
+{
+  width: 375px;
+  background-color: #57BDB1; /*aqua*/
+  margin: 60px auto;
+  position: relative;
+}
+
+.calculator:after
+{
+  content: " ";
+  width: 375px;
+  height: 492px;
+  background-color: #eee;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: -1;
+}
+
+.arrow-left, .arrow-right
+{
+  width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  position: absolute;
+  transform:rotate(-45deg);
+  -ms-transform:rotate(-45deg);
+  -webkit-transform:rotate(-45deg);
+}
+
+.arrow-left
+{
+  right: -13px;
+  top: 0;
+  border-right:15px solid #eee;
+}
+
+.arrow-right
+{
+  left: 9px;
+  bottom: -20px;
+  border-left:15px solid #eee;
+}
+
+.calculator-inner
+{
+  margin: 35px;
+  border: 1px solid #57BDB1;
+}
+
+.total
+{
+  height: 60px;
+  margin: 50px 0 30px 0;
+  width: 100%;
+  background-color: #fff;
+  text-align: right;
+  color: #FFC0CB; /*pink*/
+  padding: 10px 20px;
+}
+
+.buttons
+{
+  display: table;
+  margin-bottom: 30px;
+}
+
+.buttons a
+{
+  width: 60px;
+  height: 60px;
+  margin: 0 20px 20px 0;
+  margin-bottom: 20px;
+  float: left;
+  background-color: #888;
+  text-align: center;
+  padding: 10px;
+}
+
+.buttons a:hover
+{
+  cursor: pointer;
+}
+
+.buttons a:active
+{
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  transition: all .5s ease;
+  opacity: .5;
+}
+
+.buttons a:nth-child(4n)
+{
+  margin-right: 0;
+}
+
+.operators a:nth-child(3)
+{
+  font-size: .8em;
+  padding: 15px;
+}
+
+.operators a:last-child
+{
+  padding: 20px;
+}
+
+#clear
+{
+  background-color: #FFC0CB; /*pink*/
+}
+</style>
+
+<link href='http://fonts.googleapis.com/css?family=Gudea:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- Internet Explorer HTML5 enabling code -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+    <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+    <!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
+    <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  </head>
+
+  <body>
+    <div class="calculator">
+      <div class="arrow-left"></div>
+      <div class="arrow-right"></div>
+      <div class="calculator-inner">
+        <div class="total"></div>
+        <div class="buttons">
+          <span class="operators">
+            <a>+</a>
+            <a>-</a>
+            <a>/</a>
+            <a>*</a>
+          </span>
+          <span class="numbers">
+            <a>1</a>
+            <a>2</a>
+            <a>3</a>
+            <a>4</a>
+            <a>5</a>
+            <a>6</a>
+            <a>7</a>
+            <a>8</a>
+            <a>9</a>
+            <a>0</a>
+          </span>
+          <a id="equals">=</a>
+          <a id="clear">C</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>Javascript Calculator</title>
+
+    <script src="jquery.js"></script>
+	
+	
+	
+	
+    <script type="text/javascript" >
+	
+	$(document).ready(function(){
+  var numOne;
+  var numTwo;
+  var operator;
+  var $result = $(".total");
+  
+  
+    // Clear variables and set display to '0'
+  function reset() {
+    numOne = null;
+    numTwo = null;
+    operator = null;
+    $result.val("0");
+  }
+
+  reset();
+  
+  
+  
+    $(".numbers a").click(function() {
+    var clickDigit = $(this).text();
+    var currentVal = $result.val();
+    var newVal;
+    if (currentVal === "0") {
+      newVal = clickDigit;
+    } else {
+      newVal = currentVal + clickDigit;
+    }
+    $result.val(newVal);
+   });
+   
+   
+     $(".operators a").click(function(){
+    operator = $(this).text();
+    numOne = parseFloat($result.val());
+    $result.val("0");
+  });
+  
+  
+  
+    $("#equals").click(function(){
+    var total;
+
+    numTwo = parseFloat($result.val());
+
+    if (operator === "+"){
+      total = numOne + numTwo;
+    }
+    else if (operator === "-"){
+      total = numOne - numTwo;
+    }
+    else if (operator === "/"){
+      total = numOne / numTwo;
+    }
+    else if (operator === "*"){
+      total = numOne * numTwo;
+    }
+
+    $result.val(total);
+   
+  });
+
+  // Call reset function
+  $("#clear").click(function(){
+    reset();
+  });
+   
+   
+  });
+  
+  
+  
+
+	
+	</script>
+	
+
+	<style>
+	.calculator
+	{
+	background:#57BDB1;
+	width:305px;
+	height:390px;
+	margin-top:58px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:auto;
+	padding-top:50px;
+	padding-bottom:50px;
+	padding-left:35px;
+	padding-right:35px;
+	}
+
+.total {
+width: 295px;
+height: 60px;
+text-align: right;
+color: pink;
+font-size: 52px;
+padding-right: 10px;
+}
+
+.buttons
+{
+
+}
+
+.buttons a {
+width: 60px;
+height: 60px;
+float: left;
+margin: 10px;
+background: #888888;
+color: white;
+font-size: 2em;
+text-align: center;
+line-height: 1.5em;
+font-weight: bold;
+cursor:pointer;
+}
+
+.calculator-inner {
+width: 370px;
+position: relative;
+top: 25px;
+right: 7px;
+}
+
+#equals
+{
+
+}
+
+#clear
+{
+background:#FFC0CB;
+}
+
+    </style>
+
+
+  </head>
+
+  <body>
+    <div class="calculator">
+
+	<input class="total" type="text" />
+	
+	<div class="calculator-inner">
+	        <div class="buttons">
+          <span class="operators">
+            <a>+</a>
+            <a>-</a>
+            <a>/</a>
+            <a>*</a>
+          </span>
+          <span class="numbers">
+            <a>1</a>
+            <a>2</a>
+            <a>3</a>
+            <a>4</a>
+            <a>5</a>
+            <a>6</a>
+            <a>7</a>
+            <a>8</a>
+            <a>9</a>
+            <a>0</a>
+          </span>
+          <a id="equals">=</a>
+          <a id="clear">C</a>
+        </div>        </div>
+	
+	
+    </div>
+  </body>
+</html>
